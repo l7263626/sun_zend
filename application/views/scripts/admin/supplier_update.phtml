@@ -1,0 +1,10 @@
+<form action="" method="post">
+廠商名稱：<input type="text" name="name" value="<?=$this->data->name?>" size="30"/><span class="valid_error"><?=$this->errorMessages['name']?></span><br/>
+聯絡人：<input type="text" name="contact" value="<?=$this->data->contact?>" size="30"/><span class="valid_error"><?=$this->errorMessages['contact']?></span><br/>
+電話：<input type="text" name="phone" value="<?=$this->data->phone?>" size="30"/><span  class="valid_error"><?=$this->errorMessages['phone']?></span><br/>
+手機：<input type="text" name="mobile" value="<?=$this->data->mobile?>" size="30"/><span  class="valid_error"><?=$this->errorMessages['mobile']?></span><br/>
+地址：<input type="text" name="address" value="<?=$this->data->address?>" size="50"/><span class="valid_error"><?=$this->errorMessages['address']?></span><br/>
+email：<input type="text" name="email" value="<?=$this->data->email?>" size="30"/><span class="valid_error"><?=$this->errorMessages['email']?></span><br/>
+<input type="hidden" name="id" value="<?=$this->data->id?>">
+<input type="submit" name="button-submit"  value="更新"/>
+</form>

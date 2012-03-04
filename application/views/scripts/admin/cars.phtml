@@ -1,0 +1,28 @@
+<?=$this->pageLocation()?>
+<div id="view-content">
+  <div id="sub-menu"><a href="/admin/add/target/cars/owner/<?=$this->owner->id?>">新增車輛</a></div> 
+  <span>車主：<?=$this->owner->name?></span>  
+  <table>
+     <tr>
+         <th>車號</th>
+         <th>車型</th>
+         <th>上次維修日期</th>
+         <th>上次維修哩程數</th>
+     </tr>
+     <?php 
+       if($this->carsArray){
+          foreach($this->carsArray as $car){
+     ?>
+     <tr>
+        <td><a href="/admin/update/target/cars/owner/<?=$car->getCustomerId()?>/car/<?=$car->getId()?>"><?=$car->getCarNo()?></a></td><td><?=$car->getCarType()?></td><td><?=$car->getLastMaintainDate()?></td><td><?=$car->getLastMaintainMileage()?></td>
+     </tr>   
+     <?php
+          }
+       }else{
+     ?>
+       <tr><td colspan="3">目前車主無登記任何車輛記錄</td></tr> 
+     <?php
+       }
+     ?> 
+  </table>
+</div>

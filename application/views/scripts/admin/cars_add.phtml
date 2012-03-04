@@ -1,0 +1,6 @@
+<form action="" method="post">
+車牌號碼：<input type="text" name="car_no" value="" size="30"/><?=$this->errorMessages['car_no']?></span><br/>
+車型：<input type="text" name="car_type" value="" size="30"/><?=$this->errorMessages['car_type']?><br/>
+<input type="hidden" name="customer_id"  value="<?=$this->owner?>"/>
+<input type="submit" name="button-submit"  value="新增"/>
+</form>

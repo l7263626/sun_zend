@@ -1,0 +1,42 @@
+<?=$this->pageLocation()?>
+<div id="view-content">
+	<div id="sub-menu"><a href="/form/add/target/account">新增收支表</a></div> 
+  <table width="100%">
+	   <tr>
+	      <th width="80">日期</th>
+	      <th width="120">客戶</th>
+	      <th width="80">車牌</th>
+	      <th>項目</th>
+	      <th width="70">收入</th>
+	      <th width="70">支出</th>
+	      <th width="70">餘額</th>
+	      <th width="60">狀態</th>
+	      <th width="180">備註</th>
+	   </tr>
+<?php
+   if(count($this->data)>0){
+       foreach($this->data as $account){
+?>	   
+	   <tr>
+	      <td><?=$account->idate?></td>
+	      <td><?=$account->customer?></td>
+	      <td><?=$account->car_no?></td>
+	      <td><?=$account->item?></td>
+	      <td><?=$account->income?></td>
+	      <td><?=$account->outgo?></td>
+	      <td><?=$account->balance?></td>
+	      <td><!--<?=$account->executed?>-->&nbsp;</td>
+	      <td><?=$account->comment?></td>
+	   </tr>
+<?php
+       }
+   }else{
+?>
+	   <tr>
+	      <td colspan="9">目前沒有任何資料</td>
+	   </tr>
+<?php   
+   } 
+?>	   
+	</table>
+</div>

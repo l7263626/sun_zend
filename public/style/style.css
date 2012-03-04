@@ -1,0 +1,131 @@
+/* CSS Document */
+body{
+  width:98%;
+  position:relative;
+  margin:0 auto;
+  padding:5px;
+}
+
+a{
+   text-decoration:none;
+}
+a:hover{
+   color:yellow;
+}
+
+table{   
+   /*width:100%;*/
+   border-collapse:collapse;
+   /*border:1px solid black;*/
+}
+td,th{
+   padding:5px;
+   border-bottom:1px solid #6c0;
+}
+th{
+   background:#cf9;
+   
+}
+td{
+   background:#ff9;
+}
+#header{
+   width:100%;
+   height:80px;
+}
+
+#menuBox{
+   width:180px;   
+   border:1px solid black;
+   background-color:#cfc; 
+   float:left;  
+   margin-right:10px;
+}
+
+.menuTitle{
+   background-color:#cc0;
+   display:block;
+   padding:3px;
+}
+
+#menuBox a,#menuBox .menuItem{
+   display:block;
+   padding-left:20px;
+   padding-top:3px;
+   padding-bottom:3px;
+}
+#menuBox a:hover{
+   background-color:yellow;
+   color:green;
+}
+
+#contentBox{   
+   border:1px solid black;
+   padding:5px;
+   background:#ffd;
+   margin-left:190px;
+
+}
+
+#page-location{
+   font-size:14px;
+   padding:5px;
+   background:grey;
+   color:#fff;
+   margin-bottom:10px;
+}
+
+#view-content{
+   margin-bottom:20px;
+}
+
+#sub-menu{
+   margin-bottom:5px;
+   padding:5px;
+   background:#cff;
+}
+
+.float-object{
+   float:left;
+   padding:5 5 5 28;
+   margin-right:5px;
+   margin-bottom:5px;
+   border:1px solid black;
+   position:relative;
+}
+.float-object .key{
+   padding:3px;
+   /*border:1px solid grey;*/
+   background:#6c6;
+   color:#f00;
+   cursor:move;
+   position:absolute;
+   font-size:12px;
+   left:0;
+   top:0;
+}
+.float-object .name{
+
+}
+#pager{
+   text-align:center;
+   margin-top:5px;
+}
+.valid_error{
+   font-size:12px;
+   color:red;
+}
+
+.multi_query_error{
+   border:1px solid #0ff;
+   color: #f00;
+   background:#ff0;
+   padding:3px;
+}
+
+.multi_query_success{
+   border:2px solid black;
+   color:#03f;
+   background:#0ff;
+   padding:3px;
+}

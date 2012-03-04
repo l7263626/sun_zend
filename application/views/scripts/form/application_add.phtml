@@ -1,0 +1,13 @@
+<div id="err_msg_zone"><?=$this->errorMessages?></div>
+<form action="" method="post">
+車主名稱：<input type="text" id="customer_name" name="customer_name"/><span>請輸入車主姓名</span>
+<input id="customer_id" type="hidden" name="customer_id" value=""/><br/>
+聯絡電話：<span id="customer_phone"></span><br/>
+手　　機：<span id="customer_mobile"></span><br/>
+聯絡地址：<span id="customer_address"></span><br/>
+公司名稱：<span id="customer_company"></span><br/>
+車牌號碼：<select id="car_id" name="car_id" disabled></select><br/>
+車　　型：<span id="car_type"></span><br/>
+進廠里程數：<input type="text" id="in_mileage" name="in_mileage"/><br/>
+<input type="submit" name="button-submit"  value="新增"/>
+</form>

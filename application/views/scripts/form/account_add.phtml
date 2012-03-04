@@ -1,0 +1,29 @@
+<div id="err_msg_zone"><?=$this->errorMessages?></div>
+<form action="" method="post">
+<table>
+   <tr>
+       <th>客戶</th>
+       <td><input type="text" name="customer" /></td>
+   </tr>
+   <tr>
+       <th>項目</th>
+       <td><input type="text" name="item" size="50"/></td>
+   </tr>
+   <tr>
+       <th>類別</th>
+       <td><input type="radio" name="type" value="income"/>收入<input type="radio" name="type" value="outgo"/>支出</td>
+   </tr>
+   <tr>
+       <th>金額</th>
+       <td><input type="text" name="amount" /></td>
+   </tr>
+   <tr>
+       <th>備註</th>
+       <td><textarea name="comment" cols="50" rows="10"></textarea></td>
+   </tr>
+   <tr>
+       <td colspan="2"><input type="submit" name="button-submit"  value="新增"/></td>
+   </tr>
+</table>
+
+</form>

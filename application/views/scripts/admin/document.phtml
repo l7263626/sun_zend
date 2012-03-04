@@ -1,0 +1,29 @@
+<?=$this->pageLocation()?>
+<div id="view-content">
+  <form aciton="" method="post">
+  	<table>
+  	   <tr>
+  	      <th>公司名稱</th>
+  	      <td><input type="text" name="company" value="<?=$this->company?>"/></td>
+  	   </tr>
+  	   <tr>
+  	      <th>電話</th>
+  	      <td><input type="text" name="telephone" value="<?=$this->telephone?>"/></td>
+  	   </tr>
+  	   <tr>
+  	      <th>手機</th>
+  	      <td><input type="text" name="mobile" value="<?=$this->mobile?>"/></td>
+  	   </tr>
+  	   <tr>
+  	      <th>住址</th>
+  	      <td><input type="text" name="address" value="<?=$this->address?>" size="50"/></td>
+  	   </tr>
+  	   <tr>
+  	      <th>&nbsp;</th>
+  	      <td><input type="submit" name="smt-button" value="送出"/>
+              <input type="reset" name="smt-reset" value="取消"/>
+          </td>
+  	   </tr>
+  	</table>
+  </form>	
+</div>

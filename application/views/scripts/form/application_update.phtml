@@ -1,0 +1,66 @@
+<div id="err_msg_zone"><?=$this->errorMessages?></div>
+<form action="" method="post">
+車主名稱：<?=$this->order->getCustomer()->name?><br/>
+聯絡電話：<?=$this->order->getCustomer()->phone?><br/>
+手　　機：<?=$this->order->getCustomer()->mobile?><br/>
+聯絡地址：<?=$this->order->getCustomer()->address?><br/>
+公司名稱：<?=$this->order->getCustomer()->company?><br/>
+車牌號碼：<?=$this->order->getCar()->car_no?><br/>
+車　　型：<?=$this->order->getCar()->car_type?><br/>
+進廠里程數：<?=$this->order->in_mileage?><br/>
+<table id="order_item">
+    <tr>
+        <th>保養/維修項目</th>
+        <th>數量</th>
+        <th>單價</th>
+        <th>合計</th>
+        <th>備註</th>
+    </tr>
+    <tr id="prepared_row" class="data_row" style="display:none;">
+        <td><input type="text" name="item"/></td>
+        <td><input type="text" name="amount" value='0'/></td>
+        <td><input type="text" name="unit_price" value='0'/></td>
+        <td><input type="text" name="summary" value='0' readonly='true'/></td>
+        <td><input type="text" name="comment"/></td>
+    </tr>
+    <?php
+    if(!empty($this->orderitem)){
+        foreach($this->orderitem as $item){
+    ?>
+    <tr key="<?=$item->id?>" class="data_row">
+        <td><input type="text" name="item" value="<?=$item->item?>"/></td>
+        <td><input type="text" name="amount" value="<?=$item->amount?>"/></td>
+        <td><input type="text" name="unit_price" value="<?=$item->unit_price?>"/></td>
+        <td><input type="text" name="summary" value="<?=$item->summary?>" readonly='true'/></td>
+        <td><input type="text" name="comment" value="<?=$item->comment?>"/></td>
+    </tr>
+    <?php
+        }
+    }   
+    ?>
+    <tr id="sum_row">
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>合計：</td>
+        <td><span id="total_summary"><?=$this->order->original_charge?></span></td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr id="notice">
+        <td colspan="2" rowspan="3"><textarea id="order_comment" name="comment" cols="40" rows="4"><?=$this->order->comment?></textarea></td>
+        <td>總金額：</td>
+        <td><span id="order_summary"><?=$this->order->original_charge?></span></td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td>實收金額：</td>
+        <td><input type="text" id="real_summary" name="real_charge" value="<?=$this->order->real_charge?>"/></td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td>客戶簽收：</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+    </tr>
+</table>
+<input type="submit" name="button-submit"  value="儲存"/>
+</form>

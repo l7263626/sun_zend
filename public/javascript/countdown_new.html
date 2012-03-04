@@ -1,0 +1,26 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=big5">
+  <meta name="generator" content="PSPad editor, www.pspad.com">
+  <title>倒數計時</title>
+  <script type="text/javascript" src="mycountdown_new.js"></script>
+  </head>
+  <body>
+     this is a testing document.
+     <div id="countdown"></div>
+     <script>
+        var showdiv=document.getElementById("countdown");
+        var gg=new countdown(showdiv,999,'gg');       
+     </script>
+     <input type="button" value="停止倒數" onclick="gg.clearInterval();"/>
+     <input type="button" value="繼續倒數" onclick="gg.setInterval();"/>
+     <div id="countdown2"></div>
+     <script>
+        var showdiv=document.getElementById("countdown2");
+        var ss=new countdown(showdiv,999,'ss');       
+     </script>
+     <input type="button" value="停止倒數" onclick="ss.clearInterval();"/>
+     <input type="button" value="繼續倒數" onclick="ss.setInterval();"/>
+  </body>
+</html>

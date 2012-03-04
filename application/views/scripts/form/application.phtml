@@ -1,0 +1,45 @@
+<?=$this->pageLocation()?>
+<div id="view-content">
+	<div id="sub-menu"><a href="/form/add/target/application">新增委修單</a></div> 
+  <table>
+	    <tr>
+	        <th><input type="checkbox" id="multi_check"/></th>
+          <th>進廠日期</th>
+	        <th>車主</th>
+	        <th>型號</th>
+	        <th>車牌</th>
+	        <th>進廠里程數</th>
+	        <th>出廠日期</th>
+	        <th>總金額</th>
+	        <th>實收金額</th>
+	        <th>備註</th>
+	        <th>&nbsp;</th>
+	    </tr>	
+  <?php 
+     if(is_array($this->data) && !empty($this->data)){
+         foreach($this->data as $order){
+  ?> 
+     <tr>
+          <td><input type="checkbox" name="delete[]" value="<?=$order->getId()?>"/></td>
+          <td><?=$order->getInDate()?></td>
+          <td><?=$order->getCustomer()->getName()?></td>
+          <td><?=$order->getCar()->getCarType()?></td>
+          <td><?=$order->getCar()->getCarNo()?></td>
+          <td><?=$order->getInMileage()?></td>
+          <td><?=$order->getOutDate()?></td>
+          <td><?=$order->getOriginalCharge()?></td>
+          <td><?=$order->getRealCharge()?></td> 
+          <td><?=$order->getComment()?></td>
+          <td><a href="/form/update/target/application/id/<?=$order->getId()?>">編輯</a></td>
+     </tr>
+  <?php
+         }
+     }else{
+  ?> 
+     <tr><td colspan="11">目前沒有任何記錄</td></tr>  
+  <?php
+     }
+  ?>
+	</table>
+	<div id="pager"><?=$this->pager?></div>
+</div>

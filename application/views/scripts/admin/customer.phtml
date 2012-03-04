@@ -1,0 +1,59 @@
+<?=$this->pageLocation()?>
+<div id="view-content">
+  <div id="sub-menu"><a href="/admin/add/target/customer">新增客戶</a></div> 
+	<form  id="customer_list_frm" action="/admin/delete/target/customer" method="post">
+  <table style="width:100%">
+	   <tr>
+         <th><input type="checkbox" id="multi_check"/></th>
+         <th>姓名</th>
+         <th>電話</th>
+         <th>手機</th>
+         <th>地址</th>
+         <th>公司名稱</th>
+         <th>email</th>
+         <th>生日</th>
+         <th>車輛(數)</th>
+     </tr>
+  <?php
+     if(count($this->customerArray)>0){
+        foreach($this->customerArray as $customer){
+  ?>
+     <tr>
+         <th><input type="checkbox" name="delete[]" value="<?=$customer->id?>"/></th><!-- style="text-align:center"-->
+         <td><a href="/admin/update/target/customer/id/<?=$customer->id?>"><?=$customer->name?></a></td>
+         <td><?=$customer->phone?></td>
+         <td><?=$customer->mobile?></td>
+         <td><?=$customer->address?></td>
+         <td><?=$customer->company?></td>
+         <td><?=$customer->email?></td>
+         <td><?=$customer->birthday?></td>
+         <td>
+            <?php
+               if($customer->getOwnedCarNums()){
+            ?>
+             <a href="/admin/cars/owner/<?=$customer->id?>"><?=$customer->getOwnedCarNums()?></a>
+            <?php
+               }else{
+            ?>
+             <a href="/admin/add/target/cars/owner/<?=$customer->id?>"><?=$customer->getOwnedCarNums()?></a>
+            <?php
+               }
+            ?>
+         </td>
+     </tr>
+  <?php
+        }
+     }else{     
+  ?>
+     <tr>
+        <td colspan="9">目前沒有任何記錄</td>
+     </tr>
+  <?php
+     }
+  ?>   
+	</table>
+	<input type="button" id="delete_smt" name="delete_smt" value="刪除"/>
+	<?=$this->inlineScript()?>
+	</form>
+	<div id="pager"><?=$this->pageController?></div>
+</div>

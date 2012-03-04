@@ -1,0 +1,9 @@
+<form action="" method="post">
+車牌號碼：<input type="text" name="car_no" value="<?=$this->ownedCar->getCarNo()?>" size="30"/><span class="valid_error"><?=$this->errorMessages['car_no']?></span><br/>
+車牌型：<input type="text" name="car_type" value="<?=$this->ownedCar->getCarType()?>" size="30"/><span class="valid_error"><?=$this->errorMessages['car_type']?></span><br/>
+上次維修日期：<input type="text" name="last_maintain_date" value="<?=$this->ownedCar->getLastMaintainDate()?>" size="30"/><span span class="valid_error"><?=$this->errorMessages['last_maintain_date']?></span><br/>
+上次維修哩程：<input type="text" name="last_maintain_mileage" value="<?=$this->ownedCar->getLastMaintainMileage()?>" size="30"/><span span class="valid_error"><?=$this->errorMessages['last_maintain_mileage']?></span><br/>
+<input type="hidden" name="customer_id"  value="<?=$this->ownedCar->getCustomerId()?>"/>
+<input type="hidden" name="id"  value="<?=$this->ownedCar->getId()?>"/>
+<input type="submit" name="button-submit"  value="更新"/>
+</form>
