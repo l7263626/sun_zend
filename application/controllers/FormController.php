@@ -81,6 +81,7 @@ class FormController extends Zend_Controller_Action
                     $mapper->save($order);
                     $this->_redirect('/form/update/target/application/id/'.$order->id);
                 }
+                $this->view->pageLocation()->add("委修單");
                 $order_id = $this->_getParam('id');
                 $mapper = new Application_Model_Mapper_Order();
                 $order = new Application_Model_Order();

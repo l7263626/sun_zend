@@ -129,3 +129,10 @@ td{
    background:#0ff;
    padding:3px;
 }
+
+.application_num_col{
+    width:60px;
+}
+.application_txt_col{
+    width:250px;
+}

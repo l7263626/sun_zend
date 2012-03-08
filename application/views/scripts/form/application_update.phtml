@@ -1,26 +1,37 @@
 <div id="err_msg_zone"><?=$this->errorMessages?></div>
 <form action="" method="post">
-車主名稱：<?=$this->order->getCustomer()->name?><br/>
-聯絡電話：<?=$this->order->getCustomer()->phone?><br/>
-手　　機：<?=$this->order->getCustomer()->mobile?><br/>
-聯絡地址：<?=$this->order->getCustomer()->address?><br/>
-公司名稱：<?=$this->order->getCustomer()->company?><br/>
-車牌號碼：<?=$this->order->getCar()->car_no?><br/>
-車　　型：<?=$this->order->getCar()->car_type?><br/>
-進廠里程數：<?=$this->order->in_mileage?><br/>
-<table id="order_item">
+<table width="100%">
+    <tr>
+        <th width="15%">車主名稱</th><td width="35%"><?=$this->order->getCustomer()->name?></td>
+        <th width="15%">公司名稱</th><td width="35%"><?=$this->order->getCustomer()->company?></td>
+    </tr>
+    <tr>
+        <th>聯絡電話</th><td><?=$this->order->getCustomer()->phone?></td>
+        <th>車牌號碼</th><td><?=$this->order->getCar()->car_no?></td>
+    </tr>
+    <tr>
+        <th>手　　機</th><td><?=$this->order->getCustomer()->mobile?></td>
+        <th>車　　型</th><td><?=$this->order->getCar()->car_type?></td>
+    </tr>
+    <tr>
+        <th>聯絡地址</th><td><?=$this->order->getCustomer()->address?></td>
+        <th>進廠里程數</th><td><?=$this->order->in_mileage?></td>
+    </tr>
+</table>
+    <hr/>
+<table id="order_item" width="100%">
     <tr>
         <th>保養/維修項目</th>
-        <th>數量</th>
-        <th>單價</th>
-        <th>合計</th>
-        <th>備註</th>
+        <th width="14%">數量</th>
+        <th width="14%">單價</th>
+        <th width="14%">合計</th>
+        <th width="35%">備註</th>
     </tr>
     <tr id="prepared_row" class="data_row" style="display:none;">
-        <td><input type="text" name="item"/></td>
-        <td><input type="text" name="amount" value='0'/></td>
-        <td><input type="text" name="unit_price" value='0'/></td>
-        <td><input type="text" name="summary" value='0' readonly='true'/></td>
+        <td><input type="text" name="item" class="application_txt_col"/></td>
+        <td><input class="application_num_col" type="text" name="amount" value='0'/></td>
+        <td><input class="application_num_col" type="text" name="unit_price" value='0'/></td>
+        <td><input class="application_num_col" type="text" name="summary" value='0' readonly='true'/></td>
         <td><input type="text" name="comment"/></td>
     </tr>
     <?php
@@ -28,10 +39,10 @@
         foreach($this->orderitem as $item){
     ?>
     <tr key="<?=$item->id?>" class="data_row">
-        <td><input type="text" name="item" value="<?=$item->item?>"/></td>
-        <td><input type="text" name="amount" value="<?=$item->amount?>"/></td>
-        <td><input type="text" name="unit_price" value="<?=$item->unit_price?>"/></td>
-        <td><input type="text" name="summary" value="<?=$item->summary?>" readonly='true'/></td>
+        <td><input type="text" name="item" value="<?=$item->item?>" class="application_txt_col"/></td>
+        <td><input class="application_num_col" type="text" name="amount" value="<?=$item->amount?>" /></td>
+        <td><input class="application_num_col" type="text" name="unit_price" value="<?=$item->unit_price?>" /></td>
+        <td><input class="application_num_col" type="text" name="summary" value="<?=$item->summary?>" readonly='true' /></td>
         <td><input type="text" name="comment" value="<?=$item->comment?>"/></td>
     </tr>
     <?php
@@ -53,7 +64,7 @@
     </tr>
     <tr>
         <td>實收金額：</td>
-        <td><input type="text" id="real_summary" name="real_charge" value="<?=$this->order->real_charge?>"/></td>
+        <td><input class="application_num_col" type="text" id="real_summary" name="real_charge" value="<?=$this->order->real_charge?>"/></td>
         <td>&nbsp;</td>
     </tr>
     <tr>
@@ -63,4 +74,6 @@
     </tr>
 </table>
 <input type="submit" name="button-submit"  value="儲存"/>
+<input type="button" name="button-print" value="列印"/>
+<input type="button" name="button-check" value="出廠"/>
 </form>
