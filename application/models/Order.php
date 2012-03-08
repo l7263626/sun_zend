@@ -83,5 +83,20 @@ class Application_Model_Order extends Application_Model_Abstract
             $this->setOriginalCharge($new_summary);                      
         }       
     }
+    public function writeAccount(){
+        $accountMapper = new Application_Model_Mapper_Accounting();
+        $account = new Application_Model_Accounting();
+        $account->setCustomer($this->getCustomer()->getName());
+        $account->setCarNo($this->getCar()->getCarNo());
+        $item = '';
+        foreach($this->getOrderItem() as $obj){
+            $item .= $obj->item . ',';
+        }
+        $account->setItem($item);
+        $account->setIncome($this->getRealCharge());
+        $account->setComment('委修出廠');
+        $account->setIdate(date("Y-m-d"));
+        $accountMapper->save($account);
+    }
 }
 

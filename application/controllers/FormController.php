@@ -78,8 +78,22 @@ class FormController extends Zend_Controller_Action
                     if($this->_request->getPost('real_charge')){
                         $order->setRealCharge($this->_request->getPost('real_charge'));
                     }
-                    $mapper->save($order);
-                    $this->_redirect('/form/update/target/application/id/'.$order->id);
+                    if($this->_request->getPost('checkout')){
+                        /* 出廠:
+                         * 1)計算折扣 2)寫入出廠日期 3)寫入收支表
+                         */
+                        $order->setOutDate(date('Y-m-d'));
+                        $discount = 1 - ( $order->real_charge / $order->original_charge );
+                        $order->setDiscount($discount);
+                        $order->writeAccount();//寫入收支表
+                        $mapper->save($order);
+                        $this->_redirect('/form/application/');
+                    }else{
+                        /*儲存資料
+                         */
+                        $mapper->save($order);
+                        $this->_redirect('/form/update/target/application/id/'.$order->id);
+                    }                    
                 }
                 $this->view->pageLocation()->add("委修單");
                 $order_id = $this->_getParam('id');
@@ -183,21 +197,15 @@ class FormController extends Zend_Controller_Action
              switch($this->_getParam('target'))
              {
                  case "account":
-                     $options = new Application_Model_Mapper_Options();
-                     $balance = $options->getBalance();
                      $account = new Application_Model_Accounting($_POST);
                      $mapper = new Application_Model_Mapper_Accounting();                                          
                      if($_POST['type']=='income'){
                          $account->setIncome($_POST['amount']);
-                         $balance += $_POST['amount'];
                      }else{
                          $account->setOutgo($_POST['amount']);
-                         $balance -= $_POST['amount'];
                      }
-                     $account->setBalance($balance);
                      $account->setIdate(date("Y-m-d"));
                      $mapper->save($account);
-                     $options->setBalance($balance);
                      $this->_redirect("/form/account");
                      break;
                  case "application":
