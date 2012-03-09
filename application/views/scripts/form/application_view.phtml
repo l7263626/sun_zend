@@ -22,10 +22,10 @@
 <table id="order_item" width="100%">
     <tr>
         <th>保養/維修項目</th>
-        <th width="14%">數量</th>
-        <th width="14%">單價</th>
-        <th width="14%">合計</th>
-        <th width="35%">備註</th>
+        <th width="12%">數量</th>
+        <th width="12%">單價</th>
+        <th width="12%">合計</th>
+        <th width="33%">備註</th>
     </tr>
     <tr id="prepared_row" class="data_row" style="display:none;">
         <td><input type="text" name="item" class="application_txt_col"/></td>
@@ -39,11 +39,11 @@
         foreach($this->orderitem as $item){
     ?>
     <tr key="<?=$item->id?>" class="data_row">
-        <td><input type="text" name="item" value="<?=$item->item?>" class="application_txt_col"/></td>
-        <td><input class="application_num_col" type="text" name="amount" value="<?=$item->amount?>" /></td>
-        <td><input class="application_num_col" type="text" name="unit_price" value="<?=$item->unit_price?>" /></td>
-        <td><input class="application_num_col" type="text" name="summary" value="<?=$item->summary?>" readonly='true' /></td>
-        <td><input type="text" name="comment" value="<?=$item->comment?>"/></td>
+        <td><?=$item->item?></td>
+        <td align="center"><?=$item->amount?></td>
+        <td align="right"><?=$item->unit_price?></td>
+        <td align="right"><?=$item->summary?></td>
+        <td><?=$item->comment?></td>
     </tr>
     <?php
         }
@@ -53,18 +53,18 @@
         <td>&nbsp;</td>
         <td>&nbsp;</td>
         <td>合計：</td>
-        <td><span id="total_summary"><?=$this->order->original_charge?></span></td>
+        <td align="right"><span id="total_summary"><?=$this->order->original_charge?></span></td>
         <td>&nbsp;</td>
     </tr>
     <tr id="notice">
-        <td colspan="2" rowspan="3"><textarea id="order_comment" name="comment" cols="40" rows="4"><?=$this->order->comment?></textarea></td>
+        <td colspan="2" rowspan="3" valign="top"><?=$this->order->comment?></td>
         <td>總金額：</td>
-        <td><span id="order_summary"><?=$this->order->original_charge?></span></td>
+        <td align="right"><span id="order_summary"><?=$this->order->original_charge?></span></td>
         <td>&nbsp;</td>
     </tr>
     <tr>
         <td>實收金額：</td>
-        <td><input class="application_num_col" type="text" id="real_summary" name="real_charge" value="<?=$this->order->real_charge?>"/></td>
+        <td align="right"><?=$this->order->real_charge?></td>
         <td>&nbsp;</td>
     </tr>
     <tr>
@@ -73,7 +73,4 @@
         <td>&nbsp;</td>
     </tr>
 </table>
-<input type="button" name="button-submit" id="btn_smt" value="儲存"/>
-<input type="button" name="button-print" id="btn_pnt" value="列印"/>
-<input type="button" name="button-check" id="btn_chk" value="出廠"/>
 </form> 

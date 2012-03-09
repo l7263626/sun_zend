@@ -61,9 +61,31 @@ class FormController extends Zend_Controller_Action
         $this->view->pageLocation()->add("首頁")->add("表單")->add("支出表");
     }
     
+    public function viewAction()
+    {
+        $this->view->pageLocation()->add("首頁")->add("表單")->add("檢視");
+        $this->layout->pageTitle .= "檢視";
+        $sub_script_name = $this->_getParam('target')."_view.phtml";
+        switch($this->_getParam('target')){
+            case "application":
+                $this->view->pageLocation()->add("委修單");
+                $order_id = $this->_getParam('id');
+                $mapper = new Application_Model_Mapper_Order();
+                $order = new Application_Model_Order();
+                $mapper->find($order_id,$order);
+                $this->view->order = $order;
+                $this->view->orderitem = $order->getOrderItem();
+                break;
+        }
+        if($this->view->getScriptPath("form/".$sub_script_name)){
+            $this->view->sub_script = $this->view->getScriptPath("form/".$sub_script_name);
+        }else{
+            throw new Exception($sub_script_name." do not exists!");
+        }           
+    }
     public function updateAction()
     {
-        $this->view->pageLocation()->add("首頁")->add("設定")->add("更新");
+        $this->view->pageLocation()->add("首頁")->add("表單")->add("更新");
         $this->layout->pageTitle .= "更新";
         $sub_script_name = $this->_getParam('target')."_update.phtml";
         switch($this->_getParam('target')){
@@ -100,6 +122,7 @@ class FormController extends Zend_Controller_Action
                 $mapper = new Application_Model_Mapper_Order();
                 $order = new Application_Model_Order();
                 $mapper->find($order_id,$order);
+                if($order->getOutDate())$this->_redirect('/form/view/target/application/id/'.$order->getId());
                 $this->view->order = $order;
                 $this->view->orderitem = $order->getOrderItem();               
                 $this->view->headScript()->appendScript("
@@ -151,7 +174,31 @@ class FormController extends Zend_Controller_Action
                             },'json');                        
                         } 
                     }
+                    function button_action(){
+                        var id_str = this.id;
+                        switch(id_str){
+                           case 'btn_smt':
+                               //alert('儲存');
+                               $('#frm_application').submit();
+                               break;
+                           case 'btn_pnt':
+                               alert('列印');
+                               break;
+                           case 'btn_chk':
+                               //alert('出廠');
+                               var real_sum = parseInt($('#real_summary').val());
+                               if(real_sum >= 0){
+                                   //alert('true');
+                                   $('#frm_application').append('<input name=\"checkout\" value=\"1\"/>');
+                                   $('#frm_application').submit(); 
+                               }else{
+                                   alert('請正確輸入實收金額!');
+                               }
+                               break;
+                        }
+                    }    
                     $(document).ready(function(){                        
+                        $(':button').click(button_action);
                         $('.data_row').filter('[id!=prepared_row]').find(':input:last').after($(btn_del_row).clone(true));
                         $('.data_row').find(':input[name=item],:input[name=comment]').change(function(){
                             $(this).parent().parent().find(':input[name=summary]').trigger('change');
