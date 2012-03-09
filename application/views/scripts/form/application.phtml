@@ -30,7 +30,13 @@
           <td><?=$order->getOriginalCharge()?></td>
           <td><?=$order->getRealCharge()?></td> 
           <td><?=$order->getComment()?></td>
-          <td><a href="/form/update/target/application/id/<?=$order->getId()?>">編輯</a></td>
+          <td>
+              <?php if($order->getOutDate()){ ?>
+              <a href="/form/view/target/application/id/<?=$order->getId()?>"/>檢視</a>
+              <?php }else{ ?>
+              <a href="/form/update/target/application/id/<?=$order->getId()?>">編輯</a>
+              <?php } ?>
+          </td>
      </tr>
   <?php
          }
