@@ -60,7 +60,7 @@ class FormController extends Zend_Controller_Action
         // action body
         $this->view->pageLocation()->add("首頁")->add("表單")->add("支出表");
     }
-    
+
     public function viewAction()
     {
         $this->view->pageLocation()->add("首頁")->add("表單")->add("檢視");
@@ -83,12 +83,29 @@ class FormController extends Zend_Controller_Action
             throw new Exception($sub_script_name." do not exists!");
         }           
     }
+
     public function updateAction()
     {
         $this->view->pageLocation()->add("首頁")->add("表單")->add("更新");
         $this->layout->pageTitle .= "更新";
         $sub_script_name = $this->_getParam('target')."_update.phtml";
         switch($this->_getParam('target')){
+            case "todo-list":
+                $mapper = new Application_Model_Mapper_TodoList();
+                $todoList = new Application_Model_TodoList();
+                $form = new Application_Form_TodoList();
+                if($this->_request->isPost()){
+                    if($form->isValid($this->_request->getPost())){
+                        $todoList->setOptions($form->getValues());
+                        $mapper->save($todoList);
+                        $this->_redirect('/form/todo-list');
+                    }
+                }
+                $this->view->pageLocation()->add('開發備忘錄');
+
+                $mapper->find($this->_getParam('id'),$todoList);
+                $this->view->object = $todoList;
+                break;
             case "application":
                 if($this->_request->isPost()){
                     $mapper = new Application_Model_Mapper_Order();
@@ -237,12 +254,22 @@ class FormController extends Zend_Controller_Action
             throw new Exception($sub_script_name." do not exists!");
         }         
     }
-    
+
     public function addAction()
     {
         if($this->_request->isPost()){
              switch($this->_getParam('target'))
              {
+                 case "todo-list":
+                     $mapper = new Application_Model_Mapper_TodoList();
+                     $todoList = new Application_Model_TodoList();
+                     $form = new Application_Form_TodoList();
+                     if($form->isValid($this->_request->getPost())){
+                         $todoList->setOptions($form->getValues());
+                         $mapper->save($todoList);
+                         $this->_redirect('/form/todo-list');
+                     }
+                     break;
                  case "account":
                      $account = new Application_Model_Accounting($_POST);
                      $mapper = new Application_Model_Mapper_Accounting();                                          
@@ -279,6 +306,9 @@ class FormController extends Zend_Controller_Action
         $this->layout->pageTitle .= "新增";
         $sub_script_name = $this->_getParam('target')."_add.phtml";
         switch($this->_getParam('target')){
+            case "todo-list":
+                $this->view->pageLocation()->add('開發備忘錄');
+                break;
             case "application":
                 $this->view->pageLocation()->add("委修單");
                 $this->view->headStyle()->appendStyle("style/jquery-ui-1.8.16.custom.css");
@@ -342,6 +372,7 @@ class FormController extends Zend_Controller_Action
             throw new Exception($sub_script_name." do not exists!");
         }      
     }
+
     public function getAction()
     {
         $this->_helper->viewRenderer->setNoRender();
@@ -371,7 +402,7 @@ class FormController extends Zend_Controller_Action
                break;   
         } 
     }
-    
+
     public function saveorderitemAction()
     {
         $this->_helper->viewRenderer->setNoRender();
@@ -398,7 +429,7 @@ class FormController extends Zend_Controller_Action
             }            
         }
     }
-    
+
     public function delorderitemAction()
     {
         $this->_helper->viewRenderer->setNoRender();
@@ -408,9 +439,23 @@ class FormController extends Zend_Controller_Action
             $order = new Application_Model_Order();
             $mapper->find($this->_request->getPost('order_id'),$order);
             $order->delItem($this->_request->getPost('id'));
-            $mapper->save($order);
+            $mapper->save($order); 
         }
     }
+
+    public function todoListAction()
+    {
+        // action body
+        $this->view->pageLocation()->add('首頁')->add('表單')->add('開發備忘錄');
+        $mapper = new Application_Model_Mapper_TodoList();
+        $select = $mapper->getDbTable()->select();
+        $select->where('`done` is null');
+        $this->view->data = $mapper->fetchAll($select);        
+        
+    }
+    
+
+
 }
 
 
