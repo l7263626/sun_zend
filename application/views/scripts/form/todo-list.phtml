@@ -1,0 +1,32 @@
+<?=$this->pageLocation()?>
+<div id="view-content">
+    <div id="sub-menu"><a href="/form/add/target/todo-list">新增項目</a></div>
+    <table width="100%">
+        <tr>
+            <th width="50">編號</th>
+            <th>標題</th>
+        </tr>
+    <?php
+    if($this->data !=null){
+        foreach($this->data as $idx=>$obj){    
+    ?>
+    <!--   有記錄時顯示    --> 
+        <tr>
+            <td><?=($idx+1)?></td>
+            <td><a href="/form/update/target/todo-list/id/<?=$obj->getId()?>"><?=$obj->getTitle()?></a></td>
+        </tr>
+    <!--   有記錄時顯示    -->
+        <?php
+        }
+    }else{
+    ?>
+    <!-- 沒有記錄時顯示 -->
+         <tr>
+             <td colspan="2">目前沒有任何記錄</td>
+         </tr>
+    <!-- 沒有記錄時顯示 -->
+    <?php
+    }
+    ?>
+    </table>
+</div>

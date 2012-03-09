@@ -6,7 +6,7 @@ class Application_Model_Supplier extends Application_Model_Abstract
     protected $_data = array(
        'id'        => null,
        'name'      => null,
-       'contact'   => null,
+       'contact'     => null,
        'phone'     => null,
        'mobile'    => null,
        'address'   => null,       

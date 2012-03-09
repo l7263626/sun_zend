@@ -28,6 +28,7 @@
           <actionMethod actionName="application"/>
           <actionMethod actionName="account"/>
           <actionMethod actionName="payed"/>
+          <actionMethod actionName="todoList"/>
         </controllerFile>
       </controllersDirectory>
       <formsDirectory>
@@ -92,6 +93,9 @@
           <viewControllerScriptsDirectory forControllerName="Index">
             <viewScriptFile forActionName="updateSQL"/>
           </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Form">
+            <viewScriptFile forActionName="todoList"/>
+          </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>
         <viewFiltersDirectory enabled="false"/>
@@ -118,7 +122,7 @@
       <publicImagesDirectory enabled="false"/>
       <publicIndexFile filesystemName="index.php"/>
       <htaccessFile filesystemName=".htaccess"/>
-    </publicDirectory>    
+    </publicDirectory>
     <temporaryDirectory enabled="false"/>
     <testsDirectory>
       <testPHPUnitConfigFile filesystemName="phpunit.xml"/>

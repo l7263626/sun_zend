@@ -1,0 +1,19 @@
+<div id="err_msg_zone"><?=$this->errorMessages?></div>
+<form action="" method="post">
+<table width="100%">
+   <tr>
+       <th width="50">標題</th>
+       <td><input type="text" name="title" size="50" style="width:100%" value="<?=$this->object->getTitle()?>"/></td>
+   </tr>
+   <tr>
+       <th>細節</th>
+       <td><textarea name="detail" cols="50" rows="10" style="width:100%"><?=$this->object->getDetail()?></textarea></td>
+   </tr>
+   <tr>
+       <td colspan="2">
+           <input type="submit" name="button-submit"  value="更新"/>
+       </td>
+   </tr>
+</table>
+<input type="hidden" name="id" value="<?=$this->object->getId()?>"/>
+</form>

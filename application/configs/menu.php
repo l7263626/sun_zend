@@ -20,4 +20,6 @@ $mainMenu[$key]['sub'][$skey]['op']="/form/account";
 $mainMenu[$key]['sub'][$skey++]['name']="收支表";
 $mainMenu[$key]['sub'][$skey]['op']="/form/payed";
 $mainMenu[$key]['sub'][$skey++]['name']="支出表";
+$mainMenu[$key]['sub'][$skey]['op']="/form/todo-list";
+$mainMenu[$key]['sub'][$skey++]['name']="開發備忘錄";
 ?>
