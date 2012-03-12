@@ -90,6 +90,32 @@ class FormController extends Zend_Controller_Action
         $this->layout->pageTitle .= "更新";
         $sub_script_name = $this->_getParam('target')."_update.phtml";
         switch($this->_getParam('target')){
+            case "todolist-done":
+                if($this->_request->isPost()){
+                    $mapper = new Application_Model_Mapper_TodoList();
+                    $todoList = new Application_Model_TodoList();
+                    $id = $this->_request->getPost('id');
+                    $mapper->find($id,$todoList);
+                    $todoList->setDone(date("Y-m-d"));
+                    if($mapper->save($todoList)){
+                        $arr['success']=1;
+                        echo json_encode($arr);
+                    }
+                }
+                die();
+            case "todolist-sort":
+                if($this->_request->isPost()){
+                    $mapper = new Application_Model_Mapper_TodoList();
+                    $todoList = new Application_Model_TodoList();
+                    if($this->_request->getPost('id')){
+                        foreach($this->_request->getPost('id') as $key => $id){
+                            $mapper->find($id,$todoList);
+                            $todoList->setPrio($key);
+                            $mapper->save($todoList);
+                        }
+                    }
+                }
+                die();
             case "todo-list":
                 $mapper = new Application_Model_Mapper_TodoList();
                 $todoList = new Application_Model_TodoList();
@@ -97,14 +123,25 @@ class FormController extends Zend_Controller_Action
                 if($this->_request->isPost()){
                     if($form->isValid($this->_request->getPost())){
                         $todoList->setOptions($form->getValues());
+                        if($this->_request->getPost("make_done")){
+                            $todoList->setDone(date("Y-m-d"));
+                        }
                         $mapper->save($todoList);
                         $this->_redirect('/form/todo-list');
                     }
                 }
                 $this->view->pageLocation()->add('開發備忘錄');
-
                 $mapper->find($this->_getParam('id'),$todoList);
+                $this->view->readonly = ($todoList->getDone()!==null)?"readonly":"";
                 $this->view->object = $todoList;
+                $this->view->headScript()->appendScript("
+                    $(document).ready(function(){
+                         $('#button-done').click(function(){
+                             $('#frm_todo').append('<input type=\"hidden\" name=\"make_done\" value=\"1\"/>');
+                             $('#frm_todo').submit();
+                         });
+                    });
+                ");
                 break;
             case "application":
                 if($this->_request->isPost()){
@@ -449,13 +486,51 @@ class FormController extends Zend_Controller_Action
         $this->view->pageLocation()->add('首頁')->add('表單')->add('開發備忘錄');
         $mapper = new Application_Model_Mapper_TodoList();
         $select = $mapper->getDbTable()->select();
-        $select->where('`done` is null');
-        $this->view->data = $mapper->fetchAll($select);        
-        
+        if($this->_getParam('history')===null){
+            $select->where('`done` is null');
+            $select->order('prio');
+            $select->order('ts desc');           
+        }else{
+            $select->where('`done` is not null');
+            $select->order('ts desc');
+        }
+        $mapper->setOptions(array('pageId'=>'p','divideNums'=>10));
+        $this->view->data = $mapper->fetchAll($select);
+        $this->view->pager = $mapper->getPageController()->getHTML();
+        $this->view->request = $this->_request;
+        $this->view->headScript()->appendFile('/javascript/jquery-ui-1.8.16.custom.min.js');
+        $this->view->headScript()->appendFile('/javascript/jquery.ui/jquery.ui.core.js');
+        $this->view->headScript()->appendFile('/javascript/jquery.ui/jquery.ui.widget.js');
+        $this->view->headScript()->appendFile('/javascript/jquery.ui/jquery.ui.mouse.js');
+        $this->view->headScript()->appendFile('/javascript/jquery.ui/jquery.ui.sortable.js');
+        $this->view->headScript()->appendScript("
+            $(document).ready(function(){
+                 $('#sortable').sortable({
+                     stop:function(evt,ui){
+                         $.post('/form/update/target/todolist-sort/',$('#frm_sortable').serialize(),function(){
+                              $('.serial').each(function(idx){
+                                  this.innerHTML = idx+1;
+                              });
+                         });
+                     }
+                 });
+                 $('a.todo-done').click(function(){
+                     var id=$(this).attr('hook');
+                     var link = this;
+                     $.post('/form/update/target/todolist-done',{'id':id},function(obj){
+                         if(obj.success==1){
+                             $(link).parent().parent().fadeOut(function(){
+                                    $(this).remove();
+                                    $('.serial').each(function(idx){
+                                        this.innerHTML = idx+1;
+                                    });                             
+                             });
+                         }
+                     },'json');
+                 });
+            });
+        ");        
     }
-    
-
-
 }
 
 
