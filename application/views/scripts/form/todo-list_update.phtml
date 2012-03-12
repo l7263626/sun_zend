@@ -1,19 +1,24 @@
 <div id="err_msg_zone"><?=$this->errorMessages?></div>
-<form action="" method="post">
+<form action="" name="frm_todo" id="frm_todo" method="post">
 <table width="100%">
    <tr>
        <th width="50">標題</th>
-       <td><input type="text" name="title" size="50" style="width:100%" value="<?=$this->object->getTitle()?>"/></td>
+       <td><input type="text" name="title" size="50" style="width:100%" value="<?=$this->object->getTitle()?>" <?=$this->readonly?>/></td>
    </tr>
    <tr>
        <th>細節</th>
-       <td><textarea name="detail" cols="50" rows="10" style="width:100%"><?=$this->object->getDetail()?></textarea></td>
+       <td><textarea name="detail" cols="50" rows="10" style="width:100%" <?=$this->readonly?> ><?=$this->object->getDetail()?></textarea></td>
    </tr>
+   <?php 
+      if(!$this->object->getDone()){
+   ?>
    <tr>
        <td colspan="2">
            <input type="submit" name="button-submit"  value="更新"/>
+           <input type="button" name="button-done" id="button-done" value="完成"/>
        </td>
    </tr>
+   <?php } ?>
 </table>
 <input type="hidden" name="id" value="<?=$this->object->getId()?>"/>
 </form>
