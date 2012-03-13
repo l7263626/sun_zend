@@ -40,6 +40,7 @@ class FormController extends Zend_Controller_Action
         // action body
         $this->layout->pageTitle .= "委修單";
         $this->view->pageLocation()->add("首頁")->add("表單")->add("委修單");
+        $this->view->SubMenu()->add('新增委修單','/form/add/target/application/');
         $this->view->headScript()->appendFile("/javascript/checkbox_multicheck.js");        
         
         $mapper = new Application_Model_Mapper_Order();
@@ -51,6 +52,7 @@ class FormController extends Zend_Controller_Action
         // action body
         $this->layout->pageTitle .= "收支表";
         $this->view->pageLocation()->add("首頁")->add("表單")->add("收支表");
+        $this->view->SubMenu()->add('新增收支表','/form/add/target/account/');
         $mapper = new Application_Model_Mapper_Accounting();
         $this->view->data = $mapper->fetchAll();
     }
@@ -484,13 +486,16 @@ class FormController extends Zend_Controller_Action
     {
         // action body
         $this->view->pageLocation()->add('首頁')->add('表單')->add('開發備忘錄');
+        $this->view->SubMenu()->add('新增項目','/form/add/target/todo-list');        
         $mapper = new Application_Model_Mapper_TodoList();
         $select = $mapper->getDbTable()->select();
         if($this->_getParam('history')===null){
+            $this->view->SubMenu()->add('歷史項目','/form/todo-list/?history');
             $select->where('`done` is null');
             $select->order('prio');
             $select->order('ts desc');           
         }else{
+            $this->view->SubMenu()->add('現有項目','/form/todo-list/');
             $select->where('`done` is not null');
             $select->order('ts desc');
         }
