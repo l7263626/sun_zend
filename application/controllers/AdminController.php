@@ -144,11 +144,12 @@ class AdminController extends Zend_Controller_Action
         }
         $this->view->pageLocation()->add("首頁")->add("設定")->add("檢查項目");
         $this->layout->pageTitle .= "檢查項目";        
-        $this->view->HeadScript()->appendFile("/javascript/jquery-ui-1.8.16.custom.min.js");
-        $this->view->HeadScript()->appendFile("/javascript/jquery.ui/jquery.ui.core.js");
-        $this->view->HeadScript()->appendFile("/javascript/jquery.ui/jquery.ui.widget.js");  
-        $this->view->HeadScript()->appendFile("/javascript/jquery.ui/jquery.ui.mouse.js");
-        $this->view->HeadScript()->appendFile("/javascript/jquery.ui/jquery.ui.sortable.js");
+//        $this->view->HeadScript()->appendFile("/javascript/jquery-ui-1.8.16.custom.min.js");
+//        $this->view->HeadScript()->appendFile("/javascript/jquery.ui/jquery.ui.core.js");
+//        $this->view->HeadScript()->appendFile("/javascript/jquery.ui/jquery.ui.widget.js");  
+//        $this->view->HeadScript()->appendFile("/javascript/jquery.ui/jquery.ui.mouse.js");
+//        $this->view->HeadScript()->appendFile("/javascript/jquery.ui/jquery.ui.sortable.js");
+        $this->view->JqueryUI()->load('sortable');
         $this->view->inlineScript()->appendScript("
            $('#sortable').sortable({
               update:function(e,ui){

@@ -339,7 +339,7 @@ class FormController extends Zend_Controller_Action
                      break;
              }
         }
-        $this->view->pageLocation()->add("首頁")->add("設定")->add("新增");
+        $this->view->pageLocation()->add("首頁")->add("表單")->add("新增");
         $this->layout->pageTitle .= "新增";
         $sub_script_name = $this->_getParam('target')."_add.phtml";
         switch($this->_getParam('target')){
@@ -498,11 +498,7 @@ class FormController extends Zend_Controller_Action
         $this->view->data = $mapper->fetchAll($select);
         $this->view->pager = $mapper->getPageController()->getHTML();
         $this->view->request = $this->_request;
-        $this->view->headScript()->appendFile('/javascript/jquery-ui-1.8.16.custom.min.js');
-        $this->view->headScript()->appendFile('/javascript/jquery.ui/jquery.ui.core.js');
-        $this->view->headScript()->appendFile('/javascript/jquery.ui/jquery.ui.widget.js');
-        $this->view->headScript()->appendFile('/javascript/jquery.ui/jquery.ui.mouse.js');
-        $this->view->headScript()->appendFile('/javascript/jquery.ui/jquery.ui.sortable.js');
+        $this->view->JqueryUI()->load('sortable');
         $this->view->headScript()->appendScript("
             $(document).ready(function(){
                  $('#sortable').sortable({
