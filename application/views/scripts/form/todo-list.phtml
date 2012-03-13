@@ -1,13 +1,6 @@
 <?=$this->pageLocation()?>
 <div id="view-content">
-    <div id="sub-menu">
-        <a href="/form/add/target/todo-list">新增項目</a>
-     <?php if($this->request->getParam('history')===null){ ?>    
-        <a href="?history">歷史項目</a>
-     <?php }else{ ?>
-        <a href="/form/todo-list/">現有項目</a>
-     <?php } ?>   
-    </div>
+    <?=$this->subMenu()?>
     <form id="frm_sortable" name="frm_sortable">
         <table width="100%">
             <tbody id="sortable">

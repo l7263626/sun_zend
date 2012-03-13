@@ -63,7 +63,8 @@ class AdminController extends Zend_Controller_Action
     public function customerAction()
     {
         // action body
-        $this->view->pageLocation()->add('首頁')->add('設定')->add('客戶資料');        
+        $this->view->pageLocation()->add('首頁')->add('設定')->add('客戶資料');     
+        $this->view->SubMenu()->add('新增客戶','/admin/add/target/customer/');
         $this->layout->pageTitle .= "客戶資料"; 
         $customerMapper = new Application_Model_Mapper_Customer(array(
             'divideNums'=> 20,             
@@ -105,6 +106,7 @@ class AdminController extends Zend_Controller_Action
     {
         // action body
         $this->view->pageLocation()->add("首頁")->add("設定")->add("廠商資料");
+        $this->view->SubMenu()->add('新增廠商','/admin/add/target/supplier/');
         //$this->view->pageLocation = "◎首頁 > 設定 > 廠商資料";
         $this->layout->pageTitle .= "廠商資料";        
         $supplierMapper = new Application_Model_Mapper_Supplier(array(
@@ -143,6 +145,7 @@ class AdminController extends Zend_Controller_Action
             die();
         }
         $this->view->pageLocation()->add("首頁")->add("設定")->add("檢查項目");
+        $this->view->SubMenu()->add('新增','/admin/add/target/checkitem/');
         $this->layout->pageTitle .= "檢查項目";        
 //        $this->view->HeadScript()->appendFile("/javascript/jquery-ui-1.8.16.custom.min.js");
 //        $this->view->HeadScript()->appendFile("/javascript/jquery.ui/jquery.ui.core.js");
