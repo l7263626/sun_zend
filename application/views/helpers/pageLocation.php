@@ -1,7 +1,7 @@
 <?php
 class Zend_View_Helper_PageLocation
 {
-    static $_stack = array(); 
+    protected static $_stack = array(); 
     
     public function pageLocation()
     {
